@@ -88,7 +88,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.present(alert, animated: true)
         })
-        sheet.addAction(UIAlertAction(title: "Submit", style: .destructive) { [weak self] _ in
+        sheet.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
             self?.deleteItem(item: item)
         })
         
