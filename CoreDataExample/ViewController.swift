@@ -22,6 +22,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         title = "CoreData To Do List"
         view.addSubview(tableView)
+        getAllItems()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.frame = view.bounds
