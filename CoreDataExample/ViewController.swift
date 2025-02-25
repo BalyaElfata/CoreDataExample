@@ -43,6 +43,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             self?.createItem(name: text)
+            self?.getAllItems()
         })
         
         present(alert, animated: true)
@@ -62,6 +63,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getAllItems() {
         do {
             models = try context.fetch(ToDoListItem.fetchRequest())
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
         catch {
             // error
@@ -75,9 +79,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         do {
             try context.save()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            getAllItems()
         }
         catch {
             // error
