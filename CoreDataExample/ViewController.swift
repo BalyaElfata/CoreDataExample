@@ -126,6 +126,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         do {
             try context.save()
+            getAllItems()
         }
         catch {
             // error
@@ -137,6 +138,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         do {
             try context.save()
+            getAllItems()
         }
         catch {
             // error
