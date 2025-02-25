@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private var models = [ToDoListItem]()
+
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let tableView: UITableView = {
@@ -25,18 +27,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return models.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = models[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Add Item"
+        cell.textLabel?.text = model.name
         return cell
     }
     
     func getAllItems() {
         do {
-            let items = try context.fetch(ToDoListItem.fetchRequest())
+            models = try context.fetch(ToDoListItem.fetchRequest())
         }
         catch {
             // error
@@ -50,6 +53,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         do {
             try context.save()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
         catch {
             // error
